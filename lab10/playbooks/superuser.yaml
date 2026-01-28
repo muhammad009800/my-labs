@@ -1,0 +1,26 @@
+---
+- name: create new user and give adminstrator privillage
+  hosts: remote
+  become: yes
+  tasks:
+    - name: create user
+      user: 
+        name: "admin"
+        state: present
+        create_home: yes
+        shell: /bin/bash
+    - name: add user into group sudoers
+      user:
+        name: admin
+        groups: wheel
+        append: yes
+    - name: allow password less
+      copy:
+        dest: "/etc/sudoers.d/admin"
+        content: "admin ALL = (ALL) NOPASSWD:ALL\n"
+        owner: root
+        group: root
+        mode: '0440'
+        validate: /usr/sbin/visudo -cf %s
+
+...

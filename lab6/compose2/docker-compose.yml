@@ -1,0 +1,36 @@
+services:
+  web:
+    container_name: web_app
+    image: nginx:latest
+    networks:
+      - my_net1
+    ports:
+      - "91:80"
+    depends_on: 
+      - db
+  db:
+    container_name: database_sql
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: app_data
+      MYSQL_USER: user
+      MYSQL_PASSWORD: strongpass
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - my_net1
+  adminar:
+    container_name: adminar
+    image: adminer
+    ports:
+      - 8081:8080
+    restart: always
+    networks:
+      - my_net1
+volumes:
+  mysql_data:
+networks:
+  my_net1:
+

@@ -1,0 +1,21 @@
+---
+- name: create shell script which immediately print msg hello world in target by ansible
+  hosts: prod
+  tasks:
+    - name:
+      copy: 
+        dest: /usr/local/bin/hello.sh
+        content: |
+          #!/bin/bash
+          echo " hello world"
+        owner: remote
+        group: remote
+        mode: '0755'
+    - name: save out of script to register
+      command: /usr/local/bin/hello.sh
+      register: variable
+    - name: print this variable register
+      debug: 
+        msg: "{{variable.stdout}}"
+
+...

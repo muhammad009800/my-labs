@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: wep
+  name: service
+spec:
+  ports:
+  - port: 8000
+    protocol: TCP
+    targetPort: 8000
+    nodePort: 30000
+  selector:
+    app: wep
+  type: NodePort
+status:
+  loadBalancer: {}

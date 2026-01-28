@@ -1,0 +1,11 @@
+---
+- name: maria-db server by ansible
+  hosts: server1
+  tasks: 
+    - name: mariadb-server
+      package: 
+        name: 
+        - mariadb-server
+        - zsh
+        state: present
+...

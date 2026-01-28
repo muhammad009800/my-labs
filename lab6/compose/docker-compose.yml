@@ -1,0 +1,30 @@
+version: "3"
+services: 
+  nginx:
+    image: nginx:latest
+    container_name: web_app
+    ports:
+      - "90:80"
+    networks:
+      - my_net
+    volumes:
+      - my_vol:/usr/share/nginx/html
+    depends_on:
+      - postgree
+  postgree:
+    image: postgres:15
+    container_name: db_app
+    ports:
+      - "5432:5432"
+    networks:
+      - my_net2
+    volumes:
+      - my_vol2:/var/lib/postgresql/data
+networks:
+  my_net2:
+  my_net:
+volumes:
+  my_vol:
+  my_vol2:
+
+
